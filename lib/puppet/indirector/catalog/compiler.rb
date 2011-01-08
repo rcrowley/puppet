@@ -98,7 +98,6 @@ class Puppet::Resource::Catalog::Compiler < Puppet::Indirector::Code
     # Add any external data to the node.
     add_node_data(node)
 
-    puts node.inspect
     node
   end
 
