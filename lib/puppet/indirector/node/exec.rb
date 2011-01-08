@@ -35,6 +35,7 @@ class Puppet::Node::Exec < Puppet::Indirector::Exec
       end
     end
 
+    puts node.inspect
     node.fact_merge
     node
   end
