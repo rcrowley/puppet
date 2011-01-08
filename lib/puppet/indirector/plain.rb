@@ -4,7 +4,6 @@ require 'puppet/indirector/terminus'
 class Puppet::Indirector::Plain < Puppet::Indirector::Terminus
   # Just return nothing.
   def find(request)
-    puts caller
     indirection.model.new(request.key)
   end
 end
