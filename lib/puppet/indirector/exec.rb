@@ -4,7 +4,6 @@ require 'puppet/util'
 class Puppet::Indirector::Exec < Puppet::Indirector::Terminus
   # Look for external node definitions.
   def find(request)
-    puts caller
     # Run the command.
     unless output = query(request.key)
       return nil
