@@ -10,7 +10,7 @@ class Puppet::Node::Dns < Puppet::Indirector::Plain
       resolver = Resolv::DNS.new
       resource = resolver.getresource(
         request.key, Resolv::DNS::Resource::IN::TXT)
-      node.classes << resource.data.split
+      node.classes += resource.data.split
     rescue Resolv::ResolvError
     end
     node.fact_merge
