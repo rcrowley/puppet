@@ -2,15 +2,12 @@ require 'puppet/indirector/facts/facter'
 
 class HierValue < Hash
   attr_accessor :top
-
   def initialize(top=nil)
     @top = top
   end
-
   def to_s
     @top
   end
-
 end
 
 class Puppet::Node::Facts::Hier < Puppet::Node::Facts::Facter
@@ -21,10 +18,11 @@ class Puppet::Node::Facts::Hier < Puppet::Node::Facts::Facter
 end
 
 class Puppet::Node::Facts::Hier < Puppet::Node::Facts::Facter
-
   def find(request)
     hier = {}
-    make = proc do |key, value|
+    super.values.reject do |key, value|
+      Symbol == key.class
+    end.each do |key, value|
       value = value.split(",") if value.index(",")
       h = hier
       if key.index("_") and keys = key.split("_")
@@ -40,8 +38,6 @@ class Puppet::Node::Facts::Hier < Puppet::Node::Facts::Facter
         h[key] = value
       end
     end
-    super.values.reject { |k, v| Symbol == k.class }.each &make
     Puppet::Node::Facts.new(request.key, hier)
   end
-
 end
