@@ -21,7 +21,7 @@ class Puppet::Node::Facts::Hier < Puppet::Node::Facts::Facter
   def find(request)
     hier = {}
     super.values.reject do |key, value|
-      Symbol == key.class
+      Symbol === key
     end.each do |key, value|
       value = value.split(",") if value.index(",")
       h = hier
