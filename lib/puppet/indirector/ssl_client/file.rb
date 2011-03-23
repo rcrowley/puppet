@@ -1,6 +1,8 @@
 require 'puppet'
-require 'puppet/ssl/host'
 require 'puppet/indirector/ssl_client'
+require 'puppet/ssl/certificate_authority'
+require 'puppet/ssl/certificate_request'
+require 'puppet/ssl/host'
 
 class Puppet::Indirector::SslClient::File < Puppet::Indirector::Code
   def ca
@@ -18,4 +20,9 @@ class Puppet::Indirector::SslClient::File < Puppet::Indirector::Code
 
     ca.sign(request.key)
   end
+
+  def search(request)
+    Puppet::SSL::Host.search(:for => Puppet::SSL::CertificateRequest)
+  end
+
 end
