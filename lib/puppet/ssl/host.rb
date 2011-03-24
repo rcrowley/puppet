@@ -118,9 +118,14 @@ class Puppet::SSL::Host
 
   def self.from_pson(pson)
     instance = new(pson["name"])
-    instance.certificate = Puppet::SSL::Certificate.from_s(pson["certificate"])
-    instance.certificate_request = Puppet::SSL::CertificateRequest.from_s(
-      pson["certificate_request"])
+    if pson["certificate"]
+      instance.certificate = Puppet::SSL::Certificate.from_s(
+        pson["certificate"])
+    end
+    if pson["certificate_request"]
+      instance.certificate_request = Puppet::SSL::CertificateRequest.from_s(
+        pson["certificate_request"])
+    end
     instance.fingerprint = pson["fingerprint"]
     instance.message = pson["message"]
     begin
